@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    $("#tabla-empleadores").DataTable();
-  });
+  $("#tabla-empleadores").DataTable();
+});
 
-  document.getElementById("formulario").addEventListener("submit", crear);
-let numActualizar ;
+document.getElementById("formulario").addEventListener("submit", crear);
+let numActualizar;
 
 function crear(e) {
   let id = document.getElementById("inputId").value;
@@ -23,13 +23,16 @@ function crear(e) {
     dir,
     email,
     codP,
-    reg
+    reg,
   };
 
   if (localStorage.getItem("empleadores") === null) {
     let entidades = [];
     entidades.push(entidad);
     localStorage.setItem("empleadores", JSON.stringify(entidades));
+    let toastLiveExample = document.getElementById("liveToast");
+    var toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
   } else {
     let entidades = JSON.parse(localStorage.getItem("empleadores"));
     let elementIndex = entidades.findIndex((obj) => obj.num == num);
@@ -37,7 +40,7 @@ function crear(e) {
       entidades.push(entidad);
       localStorage.setItem("empleadores", JSON.stringify(entidades));
       let toastLiveExample = document.getElementById("liveToast");
-      var toast = new bootstrap.Toast(toastLiveExample);    
+      var toast = new bootstrap.Toast(toastLiveExample);
       toast.show();
     } else {
       alert(
@@ -55,7 +58,7 @@ function crear(e) {
 
 function leer() {
   let entidades = JSON.parse(localStorage.getItem("empleadores"));
-  
+
   if (entidades != null) {
     document.getElementById("tabla-tbody").innerHTML = "";
     for (let i = 0; i < entidades.length; i++) {
@@ -86,44 +89,48 @@ function leer() {
 }
 leer();
 
-function editar(num){
-    let entidades = JSON.parse(localStorage.getItem("empleadores"));
-    let elementIndex = entidades.findIndex((obj) => obj.num == num);
-    
-    document.getElementById("inputIdA").value= entidades[elementIndex].id;
-    document.getElementById("inputNumA").value= entidades[elementIndex].num;
-    document.getElementById("inputEmpresaA").value= entidades[elementIndex].empresa;
-    document.getElementById("inputCiudadA").value= entidades[elementIndex].ciudad;
-    document.getElementById("inputDirA").value= entidades[elementIndex].dir;
-    document.getElementById("inputEmailA").value= entidades[elementIndex].email;
-    document.getElementById("inputCodPA").value= entidades[elementIndex].codP;
-    document.getElementById("inputRegA").value= entidades[elementIndex].reg;
-    numActualizar = num;
+function editar(num) {
+  let entidades = JSON.parse(localStorage.getItem("empleadores"));
+  let elementIndex = entidades.findIndex((obj) => obj.num == num);
+
+  document.getElementById("inputIdA").value = entidades[elementIndex].id;
+  document.getElementById("inputNumA").value = entidades[elementIndex].num;
+  document.getElementById("inputEmpresaA").value =
+    entidades[elementIndex].empresa;
+  document.getElementById("inputCiudadA").value =
+    entidades[elementIndex].ciudad;
+  document.getElementById("inputDirA").value = entidades[elementIndex].dir;
+  document.getElementById("inputEmailA").value = entidades[elementIndex].email;
+  document.getElementById("inputCodPA").value = entidades[elementIndex].codP;
+  document.getElementById("inputRegA").value = entidades[elementIndex].reg;
+  numActualizar = num;
 }
 
-function actualizar(){
-    // debugger
-    let entidades = JSON.parse(localStorage.getItem("empleadores"));
-    let elementIndex = entidades.findIndex((obj) => obj.num == numActualizar);
-    // console.log(elementIndex);
-    
-    entidades[elementIndex].empresa = document.getElementById("inputEmpresaA").value;
-    entidades[elementIndex].ciudad = document.getElementById("inputCiudadA").value;
-    entidades[elementIndex].dir = document.getElementById("inputDirA").value;
-    entidades[elementIndex].email = document.getElementById("inputEmailA").value;
-    entidades[elementIndex].codP = document.getElementById("inputCodPA").value;
-    entidades[elementIndex].reg = document.getElementById("inputRegA").value;
-    localStorage.setItem("empleadores", JSON.stringify(entidades));
-    alert("Usuario actualizado exitosamente!");
-    leer();
+function actualizar() {
+  // debugger
+  let entidades = JSON.parse(localStorage.getItem("empleadores"));
+  let elementIndex = entidades.findIndex((obj) => obj.num == numActualizar);
+  // console.log(elementIndex);
+
+  entidades[elementIndex].empresa =
+    document.getElementById("inputEmpresaA").value;
+  entidades[elementIndex].ciudad =
+    document.getElementById("inputCiudadA").value;
+  entidades[elementIndex].dir = document.getElementById("inputDirA").value;
+  entidades[elementIndex].email = document.getElementById("inputEmailA").value;
+  entidades[elementIndex].codP = document.getElementById("inputCodPA").value;
+  entidades[elementIndex].reg = document.getElementById("inputRegA").value;
+  localStorage.setItem("empleadores", JSON.stringify(entidades));
+  alert("Usuario actualizado exitosamente!");
+  leer();
 }
 
-function eliminar(){
-    let entidades = JSON.parse(localStorage.getItem("empleadores"));
-    let elementIndex = entidades.findIndex((obj) => obj.num == numActualizar);
+function eliminar() {
+  let entidades = JSON.parse(localStorage.getItem("empleadores"));
+  let elementIndex = entidades.findIndex((obj) => obj.num == numActualizar);
 
-    entidades.splice(elementIndex, 1);
-    localStorage.setItem("empleadores", JSON.stringify(entidades));
-    leer();
-    alert("Registro eliminado correctamente!");
+  entidades.splice(elementIndex, 1);
+  localStorage.setItem("empleadores", JSON.stringify(entidades));
+  leer();
+  alert("Registro eliminado correctamente!");
 }

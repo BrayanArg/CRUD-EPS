@@ -1,12 +1,10 @@
-
-      $(document).ready(async function () {
-        await leer();
-        $("#tabla-afiliados").DataTable();
-      });
-    
+$(document).ready(async function () {
+  await leer();
+  $("#tabla-afiliados").DataTable();
+});
 
 document.getElementById("formulario").addEventListener("submit", crear);
-let numActualizar ;
+let numActualizar;
 
 function crear(e) {
   let id = document.getElementById("inputId").value;
@@ -27,6 +25,9 @@ function crear(e) {
     let pacientes = [];
     pacientes.push(paciente);
     localStorage.setItem("afiliados", JSON.stringify(pacientes));
+    let toastLiveExample = document.getElementById("liveToast");
+    var toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
   } else {
     let pacientes = JSON.parse(localStorage.getItem("afiliados"));
     let elementIndex = pacientes.findIndex((obj) => obj.num == num);
@@ -34,7 +35,7 @@ function crear(e) {
       pacientes.push(paciente);
       localStorage.setItem("afiliados", JSON.stringify(pacientes));
       let toastLiveExample = document.getElementById("liveToast");
-      var toast = new bootstrap.Toast(toastLiveExample);    
+      var toast = new bootstrap.Toast(toastLiveExample);
       toast.show();
     } else {
       alert(
@@ -77,38 +78,40 @@ function leer() {
 }
 leer();
 
-function editar(num){
-    let pacientes = JSON.parse(localStorage.getItem("afiliados"));
-    let elementIndex = pacientes.findIndex((obj) => obj.num == num);
-    
-    document.getElementById("inputIdA").value= pacientes[elementIndex].id;
-    document.getElementById("inputNumA").value= pacientes[elementIndex].num;
-    document.getElementById("inputNombreA").value= pacientes[elementIndex].nombre;
-    document.getElementById("inputFechaA").value= pacientes[elementIndex].fecha;
-    document.getElementById("inputEspA").value= pacientes[elementIndex].esp;
-    numActualizar = num;
+function editar(num) {
+  let pacientes = JSON.parse(localStorage.getItem("afiliados"));
+  let elementIndex = pacientes.findIndex((obj) => obj.num == num);
+
+  document.getElementById("inputIdA").value = pacientes[elementIndex].id;
+  document.getElementById("inputNumA").value = pacientes[elementIndex].num;
+  document.getElementById("inputNombreA").value =
+    pacientes[elementIndex].nombre;
+  document.getElementById("inputFechaA").value = pacientes[elementIndex].fecha;
+  document.getElementById("inputEspA").value = pacientes[elementIndex].esp;
+  numActualizar = num;
 }
 
-function actualizar(){
-    // debugger
-    let pacientes = JSON.parse(localStorage.getItem("afiliados"));
-    let elementIndex = pacientes.findIndex((obj) => obj.num == numActualizar);
-    // console.log(elementIndex);
-    
-    pacientes[elementIndex].nombre = document.getElementById("inputNombreA").value;
-    pacientes[elementIndex].fecha = document.getElementById("inputFechaA").value;
-    pacientes[elementIndex].esp = document.getElementById("inputEspA").value;
-    localStorage.setItem("afiliados", JSON.stringify(pacientes));
-    alert("Usuario actualizado exitosamente!");
-    leer();
+function actualizar() {
+  // debugger
+  let pacientes = JSON.parse(localStorage.getItem("afiliados"));
+  let elementIndex = pacientes.findIndex((obj) => obj.num == numActualizar);
+  // console.log(elementIndex);
+
+  pacientes[elementIndex].nombre =
+    document.getElementById("inputNombreA").value;
+  pacientes[elementIndex].fecha = document.getElementById("inputFechaA").value;
+  pacientes[elementIndex].esp = document.getElementById("inputEspA").value;
+  localStorage.setItem("afiliados", JSON.stringify(pacientes));
+  alert("Usuario actualizado exitosamente!");
+  leer();
 }
 
-function eliminar(){
-    let pacientes = JSON.parse(localStorage.getItem("afiliados"));
-    let elementIndex = pacientes.findIndex((obj) => obj.num == numActualizar);
+function eliminar() {
+  let pacientes = JSON.parse(localStorage.getItem("afiliados"));
+  let elementIndex = pacientes.findIndex((obj) => obj.num == numActualizar);
 
-    pacientes.splice(elementIndex, 1);
-    localStorage.setItem("afiliados", JSON.stringify(pacientes));
-    leer();
-    alert("Registro eliminado correctamente!");
+  pacientes.splice(elementIndex, 1);
+  localStorage.setItem("afiliados", JSON.stringify(pacientes));
+  leer();
+  alert("Registro eliminado correctamente!");
 }

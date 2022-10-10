@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    $("#tabla-independientes").DataTable();
-  });
+  $("#tabla-independientes").DataTable();
+});
 
-  document.getElementById("formulario").addEventListener("submit", crear);
-let numActualizar ;
+document.getElementById("formulario").addEventListener("submit", crear);
+let numActualizar;
 
 function crear(e) {
-    // debugger
+  // debugger
   let id = document.getElementById("inputId").value;
   let num = document.getElementById("inputNum").value;
   let nombre = document.getElementById("inputNombre").value;
@@ -24,13 +24,16 @@ function crear(e) {
     dir,
     email,
     barrio,
-    sede
+    sede,
   };
 
   if (localStorage.getItem("independientes") === null) {
     let personas = [];
     personas.push(persona);
     localStorage.setItem("independientes", JSON.stringify(personas));
+    let toastLiveExample = document.getElementById("liveToast");
+    var toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
   } else {
     let personas = JSON.parse(localStorage.getItem("independientes"));
     let elementIndex = personas.findIndex((obj) => obj.num == num);
@@ -38,7 +41,7 @@ function crear(e) {
       personas.push(persona);
       localStorage.setItem("independientes", JSON.stringify(personas));
       let toastLiveExample = document.getElementById("liveToast");
-      var toast = new bootstrap.Toast(toastLiveExample);    
+      var toast = new bootstrap.Toast(toastLiveExample);
       toast.show();
     } else {
       alert(
@@ -56,7 +59,7 @@ function crear(e) {
 
 function leer() {
   let personas = JSON.parse(localStorage.getItem("independientes"));
-  
+
   if (personas != null) {
     document.getElementById("tabla-tbody").innerHTML = "";
     for (let i = 0; i < personas.length; i++) {
@@ -87,45 +90,45 @@ function leer() {
 }
 leer();
 
-function editar(num){
-    // debugger
-    let personas = JSON.parse(localStorage.getItem("independientes"));
-    let elementIndex = personas.findIndex((obj) => obj.num == num);
-    
-    document.getElementById("inputIdA").value= personas[elementIndex].id;
-    document.getElementById("inputNumA").value= personas[elementIndex].num;
-    document.getElementById("inputNombreA").value= personas[elementIndex].nombre;
-    document.getElementById("inputCiudadA").value= personas[elementIndex].ciudad;
-    document.getElementById("inputDirA").value= personas[elementIndex].dir;
-    document.getElementById("inputEmailA").value= personas[elementIndex].email;
-    document.getElementById("inputBarrioA").value= personas[elementIndex].barrio;
-    document.getElementById("inputSedeA").value= personas[elementIndex].sede;
-    numActualizar = num;
+function editar(num) {
+  // debugger
+  let personas = JSON.parse(localStorage.getItem("independientes"));
+  let elementIndex = personas.findIndex((obj) => obj.num == num);
+
+  document.getElementById("inputIdA").value = personas[elementIndex].id;
+  document.getElementById("inputNumA").value = personas[elementIndex].num;
+  document.getElementById("inputNombreA").value = personas[elementIndex].nombre;
+  document.getElementById("inputCiudadA").value = personas[elementIndex].ciudad;
+  document.getElementById("inputDirA").value = personas[elementIndex].dir;
+  document.getElementById("inputEmailA").value = personas[elementIndex].email;
+  document.getElementById("inputBarrioA").value = personas[elementIndex].barrio;
+  document.getElementById("inputSedeA").value = personas[elementIndex].sede;
+  numActualizar = num;
 }
 
-function actualizar(){
-    // debugger
-    let personas = JSON.parse(localStorage.getItem("independientes"));
-    let elementIndex = personas.findIndex((obj) => obj.num == numActualizar);
-    // console.log(elementIndex);
-    
-    personas[elementIndex].nombre = document.getElementById("inputNombreA").value;
-    personas[elementIndex].ciudad = document.getElementById("inputCiudadA").value;
-    personas[elementIndex].dir = document.getElementById("inputDirA").value;
-    personas[elementIndex].email = document.getElementById("inputEmailA").value;
-    personas[elementIndex].barrio = document.getElementById("inputBarrioA").value;
-    personas[elementIndex].sede = document.getElementById("inputSedeA").value;
-    localStorage.setItem("independientes", JSON.stringify(personas));
-    alert("Usuario actualizado exitosamente!");
-    leer();
+function actualizar() {
+  // debugger
+  let personas = JSON.parse(localStorage.getItem("independientes"));
+  let elementIndex = personas.findIndex((obj) => obj.num == numActualizar);
+  // console.log(elementIndex);
+
+  personas[elementIndex].nombre = document.getElementById("inputNombreA").value;
+  personas[elementIndex].ciudad = document.getElementById("inputCiudadA").value;
+  personas[elementIndex].dir = document.getElementById("inputDirA").value;
+  personas[elementIndex].email = document.getElementById("inputEmailA").value;
+  personas[elementIndex].barrio = document.getElementById("inputBarrioA").value;
+  personas[elementIndex].sede = document.getElementById("inputSedeA").value;
+  localStorage.setItem("independientes", JSON.stringify(personas));
+  alert("Usuario actualizado exitosamente!");
+  leer();
 }
 
-function eliminar(){
-    let personas = JSON.parse(localStorage.getItem("independientes"));
-    let elementIndex = personas.findIndex((obj) => obj.num == numActualizar);
+function eliminar() {
+  let personas = JSON.parse(localStorage.getItem("independientes"));
+  let elementIndex = personas.findIndex((obj) => obj.num == numActualizar);
 
-    personas.splice(elementIndex, 1);
-    localStorage.setItem("independientes", JSON.stringify(personas));
-    leer();
-    alert("Registro eliminado correctamente!");
+  personas.splice(elementIndex, 1);
+  localStorage.setItem("independientes", JSON.stringify(personas));
+  leer();
+  alert("Registro eliminado correctamente!");
 }
