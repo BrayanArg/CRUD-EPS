@@ -32,6 +32,8 @@ function crear(e) {
     let users = [];
     users.push(user);
     localStorage.setItem("usuarios", JSON.stringify(users));
+    document.getElementById("pageInicio").click();
+    document.getElementById("formulario").reset();
   } else {
     let users = JSON.parse(localStorage.getItem("usuarios"));
     let elementIndex = users.findIndex((obj) => obj.email == email);
@@ -40,14 +42,13 @@ function crear(e) {
       localStorage.setItem("usuarios", JSON.stringify(users));
       document.getElementById("pageInicio").click();
       document.getElementById("formulario").reset();
+      console.log("Usuario creado Correctamente");
     } else {
       alert("Usuario existente, por favor digite otro correo.");
     }
   }
 
   e.preventDefault();
-
-  console.log("Usuarios creado Correctamente");
 }
 
 function login() {
