@@ -1,6 +1,5 @@
-$(document).ready(async function () {
-  await leer();
-  $("#tabla-afiliados").DataTable();
+$(document).ready(function () {
+    $("#tabla-afiliados").DataTable();
 });
 
 document.getElementById("formulario").addEventListener("submit", crear);
