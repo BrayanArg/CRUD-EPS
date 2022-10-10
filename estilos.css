@@ -162,3 +162,13 @@ body:not(.page-registro){
 .modal-edit .modal-body{
     background: linear-gradient(0deg, rgba(111,143,255,1) 0%, rgba(255,255,255,1) 100%);
 }
+
+.toast-body{
+    background: #31ff0591;
+    font-weight: 700;
+}
+
+.notificacion-toast .toast{
+    border-radius: 10px;
+    overflow: hidden;
+}
